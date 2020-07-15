@@ -9,12 +9,12 @@ packages:
     version: 1.2.0.1
     git: https://github.com/emekoi/bindings-OpenCL
     pantry-tree:
-      size: 721
-      sha256: 30ecbb8a0239b3114d7dc0e05cebee0a81b17eb5120703a0f5982510c27dd775
-    commit: 56aa637a5e0715b15318381e8a10c9ff830a14f5
+      size: 722
+      sha256: 86bf857c04c316af9dcf9669d6711b0c6fbdccddfba36dd88ab95239b4f94fdb
+    commit: 26a74bc48b036536918c74880cdebea5a009b6a4
   original:
     git: https://github.com/emekoi/bindings-OpenCL
-    commit: 56aa637a5e0715b15318381e8a10c9ff830a14f5
+    commit: 26a74bc48b036536918c74880cdebea5a009b6a4
 snapshots:
 - completed:
     size: 531707

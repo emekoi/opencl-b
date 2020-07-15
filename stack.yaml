@@ -41,7 +41,7 @@ packages:
 #
 extra-deps:
 - git: https://github.com/emekoi/bindings-OpenCL
-  commit: 56aa637a5e0715b15318381e8a10c9ff830a14f5
+  commit: 26a74bc48b036536918c74880cdebea5a009b6a4
 
 # Override default flag values for local packages and extra-deps
 # flags: {}
