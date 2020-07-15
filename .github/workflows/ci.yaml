@@ -24,6 +24,9 @@ jobs:
           enable-stack: true
           stack-version: latest
 
+      - name: Install OpenCL
+        run: sudo apt-get install ocl-icd-opencl-dev
+
       - uses: actions/cache@v2
         name: Cache ~/.stack
         with:
