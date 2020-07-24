@@ -1,6 +1,6 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.34.1.
+-- This file has been generated from package.yaml by hpack version 0.34.2.
 --
 -- see: https://github.com/sol/hpack
 
@@ -33,7 +33,7 @@ library
       Paths_opencl_b
   hs-source-dirs:
       src
-  default-extensions: FlexibleInstances MultiParamTypeClasses FlexibleContexts TupleSections
+  default-extensions: FlexibleInstances MultiParamTypeClasses FlexibleContexts TupleSections LambdaCase
   build-depends:
       base >=4.7 && <5
     , bindings-OpenCL ==1.2.0.1
@@ -47,7 +47,7 @@ test-suite opencl-b-test
       Paths_opencl_b
   hs-source-dirs:
       test
-  default-extensions: FlexibleInstances MultiParamTypeClasses FlexibleContexts TupleSections
+  default-extensions: FlexibleInstances MultiParamTypeClasses FlexibleContexts TupleSections LambdaCase
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5

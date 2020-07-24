@@ -7,7 +7,6 @@ where
 
 import Foreign
 import Foreign.C.Types
-import Language.Haskell.TH
 
 -- | A value that can be converted to and from a C type
 class Convertable c haskell where

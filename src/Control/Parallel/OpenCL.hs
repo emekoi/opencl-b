@@ -1,1 +1,132 @@
-module Control.Parallel.OpenCL where
+module Control.Parallel.OpenCL () where
+
+-- import Bindings.OpenCL.Constants
+-- import Bindings.OpenCL.Functions as F
+-- import Bindings.OpenCL.Types
+-- import Foreign
+-- import Foreign.C.String
+-- import Foreign.C.Types
+
+-- getPlatformIDs n p u = c'clGetPlatfor
+
+-- #ccall clGetPlatformIDs , CUInt -> Ptr <cl_platform_id> -> Ptr CUInt -> IO CInt
+-- #ccall clGetPlatformInfo , Ptr <cl_platform_id> -> CUInt -> CSize -> Ptr () -> Ptr CSize -> IO CInt
+-- #ccall clGetDeviceIDs , Ptr <cl_platform_id> -> CULong -> CUInt -> Ptr <cl_device_id> -> Ptr CUInt -> IO CInt
+-- #ccall clGetDeviceInfo , Ptr <cl_device_id> -> CUInt -> CSize -> Ptr () -> Ptr CSize -> IO CInt
+-- #ccall clCreateSubDevices , Ptr <cl_device_id> -> Ptr IntPtr -> CUInt -> Ptr <cl_device_id> -> Ptr CUInt -> IO CInt
+-- #ccall clRetainDevice , Ptr <cl_device_id> -> IO CInt
+-- #ccall clReleaseDevice , Ptr <cl_device_id> -> IO CInt
+-- #ccall clSetDefaultDeviceCommandQueue , Ptr <cl_context> -> Ptr <cl_device_id> -> Ptr <cl_command_queue> -> IO CInt
+-- #ccall clGetDeviceAndHostTimer , Ptr <cl_device_id> -> Ptr CULong -> Ptr CULong -> IO CInt
+-- #ccall clGetHostTimer , Ptr <cl_device_id> -> Ptr CULong -> IO CInt
+-- #ccall clCreateContext , Ptr IntPtr -> CUInt -> Ptr <cl_device_id> -> FunPtr (CString -> Ptr () -> CSize -> Ptr () -> IO ()) -> Ptr () -> Ptr CInt -> IO (Ptr <cl_context>)
+-- #ccall clCreateContextFromType , Ptr IntPtr -> CULong -> FunPtr (CString -> Ptr () -> CSize -> Ptr () -> IO ()) -> Ptr () -> Ptr CInt -> IO (Ptr <cl_context>)
+-- #ccall clRetainContext , Ptr <cl_context> -> IO CInt
+-- #ccall clReleaseContext , Ptr <cl_context> -> IO CInt
+-- #ccall clGetContextInfo , Ptr <cl_context> -> CUInt -> CSize -> Ptr () -> Ptr CSize -> IO CInt
+-- #ccall clCreateCommandQueueWithProperties , Ptr <cl_context> -> Ptr <cl_device_id> -> Ptr CULong -> Ptr CInt -> IO (Ptr <cl_command_queue>)
+-- #ccall clRetainCommandQueue , Ptr <cl_command_queue> -> IO CInt
+-- #ccall clReleaseCommandQueue , Ptr <cl_command_queue> -> IO CInt
+-- #ccall clGetCommandQueueInfo , Ptr <cl_command_queue> -> CUInt -> CSize -> Ptr () -> Ptr CSize -> IO CInt
+-- #ccall clCreateBuffer , Ptr <cl_context> -> CULong -> CSize -> Ptr () -> Ptr CInt -> IO (Ptr <cl_mem>)
+-- #ccall clCreateSubBuffer , Ptr <cl_mem> -> CULong -> CUInt -> Ptr () -> Ptr CInt -> IO (Ptr <cl_mem>)
+-- #ccall clCreateImage , Ptr <cl_context> -> CULong -> Ptr <cl_image_format> -> Ptr <cl_image_desc> -> Ptr () -> Ptr CInt -> IO (Ptr <cl_mem>)
+-- #ccall clCreatePipe , Ptr <cl_context> -> CULong -> CUInt -> CUInt -> Ptr IntPtr -> Ptr CInt -> IO (Ptr <cl_mem>)
+-- #ccall clRetainMemObject , Ptr <cl_mem> -> IO CInt
+-- #ccall clReleaseMemObject , Ptr <cl_mem> -> IO CInt
+-- #ccall clGetSupportedImageFormats , Ptr <cl_context> -> CULong -> CUInt -> CUInt -> Ptr <cl_image_format> -> Ptr CUInt -> IO CInt
+-- #ccall clGetMemObjectInfo , Ptr <cl_mem> -> CUInt -> CSize -> Ptr () -> Ptr CSize -> IO CInt
+-- #ccall clGetImageInfo , Ptr <cl_mem> -> CUInt -> CSize -> Ptr () -> Ptr CSize -> IO CInt
+-- #ccall clGetPipeInfo , Ptr <cl_mem> -> CUInt -> CSize -> Ptr () -> Ptr CSize -> IO CInt
+-- #ccall clSetMemObjectDestructorCallback , Ptr <cl_mem> -> FunPtr (Ptr <cl_mem> -> Ptr () -> IO ()) -> Ptr () -> IO CInt
+-- #ccall clSVMAlloc , Ptr <cl_context> -> CULong -> CSize -> CUInt -> IO (Ptr ())
+-- #ccall clSVMFree , Ptr <cl_context> -> Ptr () -> IO ()
+-- #ccall clCreateSamplerWithProperties , Ptr <cl_context> -> Ptr CULong -> Ptr CInt -> IO (Ptr <cl_sampler>)
+-- #ccall clRetainSampler , Ptr <cl_sampler> -> IO CInt
+-- #ccall clReleaseSampler , Ptr <cl_sampler> -> IO CInt
+-- #ccall clGetSamplerInfo , Ptr <cl_sampler> -> CUInt -> CSize -> Ptr () -> Ptr CSize -> IO CInt
+-- #ccall clCreateProgramWithSource , Ptr <cl_context> -> CUInt -> Ptr CString -> Ptr CSize -> Ptr CInt -> IO (Ptr <cl_program>)
+-- #ccall clCreateProgramWithBinary , Ptr <cl_context> -> CUInt -> Ptr <cl_device_id> -> Ptr CSize -> Ptr (Ptr CUChar) -> Ptr CInt -> Ptr CInt -> IO (Ptr <cl_program>)
+-- #ccall clCreateProgramWithBuiltInKernels , Ptr <cl_context> -> CUInt -> Ptr <cl_device_id> -> CString -> Ptr CInt -> IO (Ptr <cl_program>)
+-- #ccall clCreateProgramWithIL , Ptr <cl_context> -> Ptr () -> CSize -> Ptr CInt -> IO (Ptr <cl_program>)
+-- #ccall clRetainProgram , Ptr <cl_program> -> IO CInt
+-- #ccall clReleaseProgram , Ptr <cl_program> -> IO CInt
+-- #ccall clBuildProgram , Ptr <cl_program> -> CUInt -> Ptr <cl_device_id> -> CString -> FunPtr (Ptr <cl_program> -> Ptr () -> IO ()) -> Ptr () -> IO CInt
+-- #ccall clCompileProgram , Ptr <cl_program> -> CUInt -> Ptr <cl_device_id> -> CString -> CUInt -> Ptr <cl_program> -> Ptr CString -> FunPtr (Ptr <cl_program> -> Ptr () -> IO ()) -> Ptr () -> IO CInt
+-- #ccall clLinkProgram , Ptr <cl_context> -> CUInt -> Ptr <cl_device_id> -> CString -> CUInt -> Ptr <cl_program> -> FunPtr (Ptr <cl_program> -> Ptr () -> IO ()) -> Ptr () -> Ptr CInt -> IO (Ptr <cl_program>)
+-- #ccall clSetProgramReleaseCallback , Ptr <cl_program> -> FunPtr (Ptr <cl_program> -> Ptr () -> IO ()) -> Ptr () -> IO CInt
+-- #ccall clSetProgramSpecializationConstant , Ptr <cl_program> -> CUInt -> CSize -> Ptr () -> IO CInt
+-- #ccall clUnloadPlatformCompiler , Ptr <cl_platform_id> -> IO CInt
+-- #ccall clGetProgramInfo , Ptr <cl_program> -> CUInt -> CSize -> Ptr () -> Ptr CSize -> IO CInt
+-- #ccall clGetProgramBuildInfo , Ptr <cl_program> -> Ptr <cl_device_id> -> CUInt -> CSize -> Ptr () -> Ptr CSize -> IO CInt
+-- #ccall clCreateKernel , Ptr <cl_program> -> CString -> Ptr CInt -> IO (Ptr <cl_kernel>)
+-- #ccall clCreateKernelsInProgram , Ptr <cl_program> -> CUInt -> Ptr <cl_kernel> -> Ptr CUInt -> IO CInt
+-- #ccall clCloneKernel , Ptr <cl_kernel> -> Ptr CInt -> IO (Ptr <cl_kernel>)
+-- #ccall clRetainKernel , Ptr <cl_kernel> -> IO CInt
+-- #ccall clReleaseKernel , Ptr <cl_kernel> -> IO CInt
+-- #ccall clSetKernelArg , Ptr <cl_kernel> -> CUInt -> CSize -> Ptr () -> IO CInt
+-- #ccall clSetKernelArgSVMPointer , Ptr <cl_kernel> -> CUInt -> Ptr () -> IO CInt
+-- #ccall clSetKernelExecInfo , Ptr <cl_kernel> -> CUInt -> CSize -> Ptr () -> IO CInt
+-- #ccall clGetKernelInfo , Ptr <cl_kernel> -> CUInt -> CSize -> Ptr () -> Ptr CSize -> IO CInt
+-- #ccall clGetKernelArgInfo , Ptr <cl_kernel> -> CUInt -> CUInt -> CSize -> Ptr () -> Ptr CSize -> IO CInt
+-- #ccall clGetKernelWorkGroupInfo , Ptr <cl_kernel> -> Ptr <cl_device_id> -> CUInt -> CSize -> Ptr () -> Ptr CSize -> IO CInt
+-- #ccall clGetKernelSubGroupInfo , Ptr <cl_kernel> -> Ptr <cl_device_id> -> CUInt -> CSize -> Ptr () -> CSize -> Ptr () -> Ptr CSize -> IO CInt
+-- #ccall clWaitForEvents , CUInt -> Ptr <cl_event> -> IO CInt
+-- #ccall clGetEventInfo , Ptr <cl_event> -> CUInt -> CSize -> Ptr () -> Ptr CSize -> IO CInt
+-- #ccall clCreateUserEvent , Ptr <cl_context> -> Ptr CInt -> IO (Ptr <cl_event>)
+-- #ccall clRetainEvent , Ptr <cl_event> -> IO CInt
+-- #ccall clReleaseEvent , Ptr <cl_event> -> IO CInt
+-- #ccall clSetUserEventStatus , Ptr <cl_event> -> CInt -> IO CInt
+-- #ccall clSetEventCallback , Ptr <cl_event> -> CInt -> FunPtr (Ptr <cl_event> -> CInt -> Ptr () -> IO ()) -> Ptr () -> IO CInt
+-- #ccall clGetEventProfilingInfo , Ptr <cl_event> -> CUInt -> CSize -> Ptr () -> Ptr CSize -> IO CInt
+-- #ccall clFlush , Ptr <cl_command_queue> -> IO CInt
+-- #ccall clFinish , Ptr <cl_command_queue> -> IO CInt
+-- #ccall clEnqueueReadBuffer , Ptr <cl_command_queue> -> Ptr <cl_mem> -> CUInt -> CSize -> CSize -> Ptr () -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> IO CInt
+-- #ccall clEnqueueReadBufferRect , Ptr <cl_command_queue> -> Ptr <cl_mem> -> CUInt -> Ptr CSize -> Ptr CSize -> Ptr CSize -> CSize -> CSize -> CSize -> CSize -> Ptr () -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> IO CInt
+-- #ccall clEnqueueWriteBuffer , Ptr <cl_command_queue> -> Ptr <cl_mem> -> CUInt -> CSize -> CSize -> Ptr () -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> IO CInt
+-- #ccall clEnqueueWriteBufferRect , Ptr <cl_command_queue> -> Ptr <cl_mem> -> CUInt -> Ptr CSize -> Ptr CSize -> Ptr CSize -> CSize -> CSize -> CSize -> CSize -> Ptr () -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> IO CInt
+-- #ccall clEnqueueFillBuffer , Ptr <cl_command_queue> -> Ptr <cl_mem> -> Ptr () -> CSize -> CSize -> CSize -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> IO CInt
+-- #ccall clEnqueueCopyBuffer , Ptr <cl_command_queue> -> Ptr <cl_mem> -> Ptr <cl_mem> -> CSize -> CSize -> CSize -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> IO CInt
+-- #ccall clEnqueueCopyBufferRect , Ptr <cl_command_queue> -> Ptr <cl_mem> -> Ptr <cl_mem> -> Ptr CSize -> Ptr CSize -> Ptr CSize -> CSize -> CSize -> CSize -> CSize -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> IO CInt
+-- #ccall clEnqueueReadImage , Ptr <cl_command_queue> -> Ptr <cl_mem> -> CUInt -> Ptr CSize -> Ptr CSize -> CSize -> CSize -> Ptr () -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> IO CInt
+-- #ccall clEnqueueWriteImage , Ptr <cl_command_queue> -> Ptr <cl_mem> -> CUInt -> Ptr CSize -> Ptr CSize -> CSize -> CSize -> Ptr () -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> IO CInt
+-- #ccall clEnqueueFillImage , Ptr <cl_command_queue> -> Ptr <cl_mem> -> Ptr () -> Ptr CSize -> Ptr CSize -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> IO CInt
+-- #ccall clEnqueueCopyImage , Ptr <cl_command_queue> -> Ptr <cl_mem> -> Ptr <cl_mem> -> Ptr CSize -> Ptr CSize -> Ptr CSize -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> IO CInt
+-- #ccall clEnqueueCopyImageToBuffer , Ptr <cl_command_queue> -> Ptr <cl_mem> -> Ptr <cl_mem> -> Ptr CSize -> Ptr CSize -> CSize -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> IO CInt
+-- #ccall clEnqueueCopyBufferToImage , Ptr <cl_command_queue> -> Ptr <cl_mem> -> Ptr <cl_mem> -> CSize -> Ptr CSize -> Ptr CSize -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> IO CInt
+-- #ccall clEnqueueMapBuffer , Ptr <cl_command_queue> -> Ptr <cl_mem> -> CUInt -> CULong -> CSize -> CSize -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> Ptr CInt -> IO (Ptr ())
+-- #ccall clEnqueueMapImage , Ptr <cl_command_queue> -> Ptr <cl_mem> -> CUInt -> CULong -> Ptr CSize -> Ptr CSize -> Ptr CSize -> Ptr CSize -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> Ptr CInt -> IO (Ptr ())
+-- #ccall clEnqueueUnmapMemObject , Ptr <cl_command_queue> -> Ptr <cl_mem> -> Ptr () -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> IO CInt
+-- #ccall clEnqueueMigrateMemObjects , Ptr <cl_command_queue> -> CUInt -> Ptr <cl_mem> -> CULong -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> IO CInt
+-- #ccall clEnqueueNDRangeKernel , Ptr <cl_command_queue> -> Ptr <cl_kernel> -> CUInt -> Ptr CSize -> Ptr CSize -> Ptr CSize -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> IO CInt
+-- #ccall clEnqueueNativeKernel , Ptr <cl_command_queue> -> FunPtr (Ptr () -> IO ()) -> Ptr () -> CSize -> CUInt -> Ptr <cl_mem> -> Ptr (Ptr ()) -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> IO CInt
+-- #ccall clEnqueueMarkerWithWaitList , Ptr <cl_command_queue> -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> IO CInt
+-- #ccall clEnqueueBarrierWithWaitList , Ptr <cl_command_queue> -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> IO CInt
+-- #ccall clEnqueueSVMFree , Ptr <cl_command_queue> -> CUInt -> Ptr (Ptr ()) -> FunPtr (Ptr <cl_command_queue> -> CUInt -> Ptr (Ptr ()) -> Ptr () -> IO ()) -> Ptr () -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> IO CInt
+-- #ccall clEnqueueSVMMemcpy , Ptr <cl_command_queue> -> CUInt -> Ptr () -> Ptr () -> CSize -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> IO CInt
+-- #ccall clEnqueueSVMMemFill , Ptr <cl_command_queue> -> Ptr () -> Ptr () -> CSize -> CSize -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> IO CInt
+-- #ccall clEnqueueSVMMap , Ptr <cl_command_queue> -> CUInt -> CULong -> Ptr () -> CSize -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> IO CInt
+-- #ccall clEnqueueSVMUnmap , Ptr <cl_command_queue> -> Ptr () -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> IO CInt
+-- #ccall clEnqueueSVMMigrateMem , Ptr <cl_command_queue> -> CUInt -> Ptr (Ptr ()) -> Ptr CSize -> CULong -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> IO CInt
+-- #ccall clGetExtensionFunctionAddressForPlatform , Ptr <cl_platform_id> -> CString -> IO (Ptr ())
+-- #ccall clCreateImage2D , Ptr <cl_context> -> CULong -> Ptr <cl_image_format> -> CSize -> CSize -> CSize -> Ptr () -> Ptr CInt -> IO (Ptr <cl_mem>)
+-- #ccall clCreateImage3D , Ptr <cl_context> -> CULong -> Ptr <cl_image_format> -> CSize -> CSize -> CSize -> CSize -> CSize -> Ptr () -> Ptr CInt -> IO (Ptr <cl_mem>)
+-- #ccall clEnqueueMarker , Ptr <cl_command_queue> -> Ptr <cl_event> -> IO CInt
+-- #ccall clEnqueueWaitForEvents , Ptr <cl_command_queue> -> CUInt -> Ptr <cl_event> -> IO CInt
+-- #ccall clEnqueueBarrier , Ptr <cl_command_queue> -> IO CInt
+-- #ccall clUnloadCompiler , IO CInt
+-- #ccall clGetExtensionFunctionAddress , CString -> IO (Ptr ())
+-- #ccall clCreateCommandQueue , Ptr <cl_context> -> Ptr <cl_device_id> -> CULong -> Ptr CInt -> IO (Ptr <cl_command_queue>)
+-- #ccall clCreateSampler , Ptr <cl_context> -> CUInt -> CUInt -> CUInt -> Ptr CInt -> IO (Ptr <cl_sampler>)
+-- #ccall clEnqueueTask , Ptr <cl_command_queue> -> Ptr <cl_kernel> -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> IO CInt
+-- #ccall clCreateFromGLBuffer , Ptr <cl_context> -> CULong -> CUInt -> Ptr CInt -> IO (Ptr <cl_mem>)
+-- #ccall clCreateFromGLTexture , Ptr <cl_context> -> CULong -> CUInt -> CInt -> CUInt -> Ptr CInt -> IO (Ptr <cl_mem>)
+-- #ccall clCreateFromGLRenderbuffer , Ptr <cl_context> -> CULong -> CUInt -> Ptr CInt -> IO (Ptr <cl_mem>)
+-- #ccall clGetGLObjectInfo , Ptr <cl_mem> -> Ptr CUInt -> Ptr CUInt -> IO CInt
+-- #ccall clGetGLTextureInfo , Ptr <cl_mem> -> CUInt -> CSize -> Ptr () -> Ptr CSize -> IO CInt
+-- #ccall clEnqueueAcquireGLObjects , Ptr <cl_command_queue> -> CUInt -> Ptr <cl_mem> -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> IO CInt
+-- #ccall clEnqueueReleaseGLObjects , Ptr <cl_command_queue> -> CUInt -> Ptr <cl_mem> -> CUInt -> Ptr <cl_event> -> Ptr <cl_event> -> IO CInt
+-- #ccall clCreateFromGLTexture2D , Ptr <cl_context> -> CULong -> CUInt -> CInt -> CUInt -> Ptr CInt -> IO (Ptr <cl_mem>)
+-- #ccall clCreateFromGLTexture3D , Ptr <cl_context> -> CULong -> CUInt -> CInt -> CUInt -> Ptr CInt -> IO (Ptr <cl_mem>)
+-- #ccall clGetGLContextInfoKHR , Ptr IntPtr -> CUInt -> CSize -> Ptr () -> Ptr CSize -> IO CInt
+-- #ccall clCreateEventFromGLsyncKHR , Ptr <cl_context> -> Ptr <cl_GLsync> -> Ptr CInt -> IO (Ptr <cl_event>)

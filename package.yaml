@@ -29,6 +29,7 @@ default-extensions:
   - MultiParamTypeClasses
   - FlexibleContexts
   - TupleSections
+  - LambdaCase
 
 library:
   source-dirs: src
