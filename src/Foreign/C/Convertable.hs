@@ -13,3 +13,6 @@ class Convertable c haskell where
   toC :: haskell -> c
   fromC :: c -> haskell
   {-# MINIMAL toC, fromC #-}
+-- instance (Num a, Num b) => Convertable a b where
+--   toC = fromIntegral
+--   fromC = fromIntegral
