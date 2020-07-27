@@ -23,7 +23,7 @@ dependencies:
 - base >= 4.7 && < 5
 - bindings-OpenCL == 1.2.0.1
 - template-haskell >= 2.15.0.0
-- ghc-prim == 0.5.3
+
 default-extensions:
   - FlexibleInstances
   - MultiParamTypeClasses

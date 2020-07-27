@@ -37,7 +37,6 @@ library
   build-depends:
       base >=4.7 && <5
     , bindings-OpenCL ==1.2.0.1
-    , ghc-prim ==0.5.3
     , template-haskell >=2.15.0.0
   default-language: Haskell2010
 
@@ -53,7 +52,6 @@ test-suite opencl-b-test
   build-depends:
       base >=4.7 && <5
     , bindings-OpenCL ==1.2.0.1
-    , ghc-prim ==0.5.3
     , opencl-b
     , template-haskell >=2.15.0.0
   default-language: Haskell2010
