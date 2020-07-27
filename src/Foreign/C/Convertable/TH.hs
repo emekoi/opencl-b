@@ -14,6 +14,7 @@ import Control.Monad
 import Data.Bifunctor (bimap, first, second)
 import Data.Bits
 import Data.Char (toLower)
+import Data.Typeable (Typeable)
 import Foreign.C.Convertable
 import Language.Haskell.TH
 
@@ -61,7 +62,7 @@ defineType :: [Name] -> Name -> DecsQ
 defineType c haskell = do
   (: []) <$> dataD (cxt []) haskell [] Nothing (map (`normalC` []) c) [derivClause Nothing derived]
   where
-    derived = map conT [''Show, ''Eq]
+    derived = map conT [''Show, ''Eq, ''Typeable]
 
 convertableType :: [(String, String)] -> Name -> String -> DecsQ
 convertableType p c haskell = do
@@ -106,23 +107,20 @@ convertableTypeO haskell c = do
     (haskell', c') = (mkName haskell, mkName c)
     cT = appT (conT ''Ptr) (conT c')
     wrapped = (Bang NoSourceUnpackedness NoSourceStrictness,) <$> cT
-    derived = map conT [''Eq]
+    derived = map conT [''Eq, ''Typeable]
 
 genPE :: String -> (PatQ, ExpQ)
 genPE v = bimap (varP . mkName) (varE . mkName) (v, v)
 
--- c'cl_image_format'image_channel_data_type
-
-deriveConvertableP :: [(String, Name, String)] -> String -> String -> DecsQ
+deriveConvertableP :: [(String, TypeQ, String)] -> String -> String -> DecsQ
 deriveConvertableP p c haskell = do
-  cI <-
-    instanceD
+  (: [])
+    <$> instanceD
       (cxt [])
       (appT (appT (conT ''Convertable) (conT c')) (conT haskell'))
       [ funD 'fromC [fromC'Clause],
         funD 'toC [toC'Clause]
       ]
-  return [cI]
   where
     (haskell', c') = (mkName haskell, mkName c)
     cFPrefix = map toLower c ++ "'"
@@ -137,14 +135,14 @@ deriveConvertableP p c haskell = do
           body = normalB . foldl appE (conE haskell') $ map (appE (varE 'fromC) . snd) cConPE
        in clause patterns body []
 
-convertableTypeP :: [(String, Name, String)] -> String -> String -> DecsQ
+convertableTypeP :: [(String, TypeQ, String)] -> String -> String -> DecsQ
 convertableTypeP p c haskell = do
   nT <- dataD (cxt []) haskell' [] Nothing [recC haskell' fields] [derivClause Nothing derived]
   cI <- deriveConvertableP p c haskell
   return $ nT : cI
   where
     defBang = Bang NoSourceUnpackedness NoSourceStrictness
-    genField (fN, hT, _) = return (mkName fN, defBang, ConT hT)
+    genField (fN, hT, _) = (mkName fN,defBang,) <$> hT
     fields = map genField p
     haskell' = mkName haskell
-    derived = map conT [''Eq, ''Show]
+    derived = map conT [''Eq, ''Show, ''Typeable]

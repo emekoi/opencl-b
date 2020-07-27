@@ -1,3 +1,5 @@
+{-# LANGUAGE TypeFamilies #-}
+
 module Foreign.C.Convertable
   ( Convertable (..),
     module Foreign,
@@ -12,7 +14,7 @@ import Foreign.C.Types
 class Convertable c haskell where
   toC :: haskell -> c
   fromC :: c -> haskell
-  {-# MINIMAL toC, fromC #-}
--- instance (Num a, Num b) => Convertable a b where
---   toC = fromIntegral
---   fromC = fromIntegral
+
+instance (a ~ a) => Convertable a a where
+  toC = id
+  fromC = id

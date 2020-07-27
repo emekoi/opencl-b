@@ -698,8 +698,8 @@ convertableTypeO "Sampler" "C'cl_sampler"
 convertableTypeO "GLSync" "C'cl_GLsync"
 
 convertableTypeP
-  [ ("channelOrder", ''ChannelOrder, "image_channel_order"),
-    ("channelType", ''ChannelType, "image_channel_data_type")
+  [ ("channelOrder", [t|ChannelOrder|], "image_channel_order"),
+    ("channelType", [t|ChannelType|], "image_channel_data_type")
   ]
   "C'cl_image_format"
   "ImageFormat"
@@ -713,41 +713,45 @@ instance Convertable CUInt Word32 where
   toC = fromIntegral
 
 convertableTypeP
-  [ ("imageType", ''MemObjectType, "image_type"),
-    ("imageWidth", ''Word, "image_width"),
-    ("imageHeight", ''Word, "image_height"),
-    ("imageDepth", ''Word, "image_depth"),
-    ("imageArraySize", ''Word, "image_array_size"),
-    ("imageRowPitch", ''Word, "image_row_pitch"),
-    ("imageSlicePitch", ''Word, "image_slice_pitch"),
-    ("numMipLevels", ''Word32, "num_mip_levels"),
-    ("numSamples", ''Word32, "num_samples")
+  [ ("imageType", [t|MemObjectType|], "image_type"),
+    ("imageWidth", [t|Word|], "image_width"),
+    ("imageHeight", [t|Word|], "image_height"),
+    ("imageDepth", [t|Word|], "image_depth"),
+    ("imageArraySize", [t|Word|], "image_array_size"),
+    ("imageRowPitch", [t|Word|], "image_row_pitch"),
+    ("imageSlicePitch", [t|Word|], "image_slice_pitch"),
+    ("numMipLevels", [t|Word32|], "num_mip_levels"),
+    ("numSamples", [t|Word32|], "num_samples")
     -- ("memObj", ''Memory, "")
   ]
   "C'cl_image_desc"
   "ImageDesc"
 
 convertableTypeP
-  [ ("origin", ''Word, "origin"),
-    ("size", ''Word, "size")
+  [ ("origin", [t|Word|], "origin"),
+    ("size", [t|Word|], "size")
   ]
   "C'cl_buffer_region"
   "BufferRegion"
--- convertableTypeP
---   [ ("allocationType", ''Word32, "allocation_type"),
---     ("hostCachePolicy", ''Word32, "host_cache_policy")
---   ]
---   "C'cl_mem_ext_host_ptr"
---   "MemExtHostPtr"
 
--- convertableTypeP
---   [ ("extHostPtr", ''MemExtHostPtr, "ext_host_ptr"),
---     ("ionFD", ''Word32, "ion_filedesc"),
---     ("ionHostPtr", ''(), "ion_hostptr")
---   ]
---   "C'cl_mem_ion_host_ptr"
---   "MemIonHostPtr"
+convertableTypeP
+  [ ("allocationType", [t|Word32|], "allocation_type"),
+    ("hostCachePolicy", [t|Word32|], "host_cache_policy")
+  ]
+  "C'cl_mem_ext_host_ptr"
+  "MemExtHostPtr"
 
+instance Convertable CInt Word32 where
+  fromC = fromIntegral
+  toC = fromIntegral
+
+convertableTypeP
+  [ ("extHostPtr", [t|MemExtHostPtr|], "ext_host_ptr"),
+    ("ionFD", [t|Word32|], "ion_filedesc"),
+    ("ionHostPtr", [t|Ptr ()|], "ion_hostptr")
+  ]
+  "C'cl_mem_ion_host_ptr"
+  "MemIonHostPtr"
 {-
 #callback clGetGLContextInfoKHR_fn , Ptr IntPtr -> CUInt -> CSize -> Ptr () -> Ptr CSize -> IO CInt
 #callback clIcdGetPlatformIDsKHR_fn , CUInt -> Ptr <cl_platform_id> -> Ptr CUInt -> IO CInt
